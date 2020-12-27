@@ -1,5 +1,6 @@
 import json, asyncio, callofduty
 from callofduty import Mode, Platform, Title
+from pathlib import Path
 
 with open('config.json','r') as f:
     config = json.load(f)
@@ -16,6 +17,8 @@ async def getPlayerStats(playerTag, title = Title.ModernWarfare, mode = Mode.War
         f.write(json.dumps(profile))
 
 players = config['playerTags']
+
+Path('out').mkdir(parents=True, exist_ok=True)
 
 for player in players:
     asyncio.get_event_loop().run_until_complete(getPlayerStats(player))
